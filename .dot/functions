@@ -723,6 +723,38 @@ sc_helper_kubectl() {
   command kubectl "$@"
 }
 
+sc_helper_kube_evicted() {
+  local evicted_pods pod_name
+  local -a pod_names=()
+
+  if [ "$#" -ne 0 ]; then
+    printf '%s\n' 'Usage: kd-evicted' >&2
+    return 2
+  fi
+  if ! command -v kubectl >/dev/null 2>&1; then
+    printf '%s\n' 'kubectl not found' >&2
+    return 127
+  fi
+
+  evicted_pods="$(command kubectl get pods \
+    --field-selector=status.phase=Failed \
+    -o 'jsonpath={range .items[?(@.status.reason=="Evicted")]}{.metadata.name}{"\n"}{end}')" || {
+    printf '%s\n' 'Could not list evicted Kubernetes pods' >&2
+    return 1
+  }
+
+  if [ -z "${evicted_pods}" ]; then
+    printf '%s\n' 'No evicted pods found'
+    return 0
+  fi
+
+  while IFS= read -r pod_name; do
+    [ -n "${pod_name}" ] && pod_names+=("${pod_name}")
+  done <<< "${evicted_pods}"
+
+  command kubectl delete pod "${pod_names[@]}"
+}
+
 sc_helper_kube_namespaces() {
   local namespaces resource_rows rows
 

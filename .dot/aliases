@@ -47,6 +47,7 @@ alias kctx-rke2-ural='sc_helper_kubeconfig_rke2_ural'
 alias kns="kubens"
 alias kd-ns="sc_helper_kube_namespaces"
 alias kd-pods="sc_helper_kube_pods"
+alias kd-evicted='sc_helper_kube_evicted'
 alias kd-events="sc_helper_kube_events"
 alias kd-gateways="sc_helper_kube_gateways"
 alias kc="sc_helper_kube_capacity"
