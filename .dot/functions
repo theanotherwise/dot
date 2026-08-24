@@ -2596,7 +2596,7 @@ sc_helper_git_scan_table() {
 
 sc_helper_git_scan() {
   local root="." color_enabled=0 fetch_requested=0
-  local ahead behind branch directory directory_name fetch_failed sync uncommitted unpushed upstream
+  local ahead behind branch directory directory_name fetch_failed git_marker sync uncommitted unpushed upstream
 
   case "${1:-}" in
     --fetch)
@@ -2619,6 +2619,11 @@ sc_helper_git_scan() {
   fi
   root="${1:-.}"
 
+  case "${root}" in
+    /) ;;
+    *) root="${root%/}" ;;
+  esac
+
   if [ ! -d "${root}" ]; then
     printf "Directory does not exist: %s\n" "${root}" >&2
     return 2
@@ -2631,10 +2636,17 @@ sc_helper_git_scan() {
   {
     printf "DIRECTORY\tBRANCH\tUNCOMMITTED\tUNPUSHED\tSYNC\n"
 
-    for directory in "${root}"/*/; do
-      [ -d "${directory}" ] || continue
-      directory="${directory%/}"
-      directory_name="${directory##*/}"
+    while IFS= read -r -d '' git_marker; do
+      directory="${git_marker%/.git}"
+      if [ "${directory}" = "${root}" ]; then
+        directory_name="."
+      elif [ "${root}" = "." ]; then
+        directory_name="${directory#./}"
+      elif [[ "${directory}" == "${root}"/* ]]; then
+        directory_name="${directory#"${root}"/}"
+      else
+        directory_name="${directory}"
+      fi
 
       [ -e "${directory}/.git" ] || continue
       command git -C "${directory}" rev-parse --git-dir >/dev/null 2>&1 || continue
@@ -2694,7 +2706,7 @@ sc_helper_git_scan() {
 
       printf "%s\t%s\t%s\t%s\t%s\n" \
         "${directory_name}" "${branch}" "${uncommitted}" "${unpushed}" "${sync}"
-    done
+    done < <(command find "${root}" -name .git -prune -print0)
   } | sc_helper_git_scan_table "${color_enabled}"
 }
 
