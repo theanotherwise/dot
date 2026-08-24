@@ -2706,7 +2706,11 @@ sc_helper_git_scan() {
 
       printf "%s\t%s\t%s\t%s\t%s\n" \
         "${directory_name}" "${branch}" "${uncommitted}" "${unpushed}" "${sync}"
-    done < <(command find "${root}" -name .git -prune -print0)
+    done < <(
+      command find "${root}" \
+        \( -type d -name .terragrunt-cache -prune \) -o \
+        \( -name .git -prune -print0 \)
+    )
   } | sc_helper_git_scan_table "${color_enabled}"
 }
 
