@@ -2714,6 +2714,19 @@ sc_helper_git_scan() {
   } | sc_helper_git_scan_table "${color_enabled}"
 }
 
+sc_helper_git_release_cv() {
+  local cv_tag
+
+  if [ "$#" -ne 0 ]; then
+    printf "Usage: git-release-cv\n" >&2
+    return 2
+  fi
+
+  cv_tag="cv-$(command date +%F)-$(command git rev-parse --short=7 HEAD)" || return 1
+  command git tag "${cv_tag}" || return 1
+  command git push origin "${cv_tag}"
+}
+
 sc_helper_git_tag_push() {
   T=$(date -u +"%Y-%m-%d.%H-%M-%S").$(git rev-parse --short HEAD)
   git tag "$T"

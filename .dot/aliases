@@ -219,6 +219,7 @@ alias git-sync-branch='git fetch -fup origin "+refs/heads/*:refs/heads/*" -vvv'
 alias git-tag='git tag'
 alias git-tag-push='git push origin tag'
 alias git-tag-by-date='sc_helper_git_tag_push'
+alias git-release-cv='sc_helper_git_release_cv'
 
 #
 #    Git Code Follow
