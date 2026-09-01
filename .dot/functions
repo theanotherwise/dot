@@ -2722,7 +2722,7 @@ sc_helper_git_release_cv() {
     return 2
   fi
 
-  cv_tag="cv-$(command date +%F)-$(command git rev-parse --short=7 HEAD)" || return 1
+  cv_tag="cv-$(command date +%y%m%d%H%M%S)-$(command git rev-parse --short=7 HEAD)" || return 1
   command git tag "${cv_tag}" || return 1
   command git push origin "${cv_tag}"
 }
