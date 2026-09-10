@@ -9,6 +9,9 @@ readonly PARENT_GIT_DIR="$(git -C "${REPO_DIR_PATH}" rev-parse --absolute-git-di
 readonly PARENT_CONFIG_LOCK="${PARENT_GIT_DIR}/config.lock"
 readonly SUBMODULE_CONFIG_LOCK="${PARENT_GIT_DIR}/modules/${SUBMODULE_NAME}/config.lock"
 
+. "${DOT_DIR_PATH}/functions"
+sc_helper_adhoc_init "${DOT_DIR_PATH}"
+
 run_git_with_lock_retry() {
 	local attempt output status
 	attempt=1

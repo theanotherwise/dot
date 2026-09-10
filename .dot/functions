@@ -2,6 +2,18 @@ if [[ -n "${SC_BASH_SHOW_LOADING:-}" ]]; then
   echo "Loading file: $(basename "${BASH_SOURCE[0]}")"
 fi
 
+sc_helper_adhoc_init() {
+  local adhoc_dir="${1:-${HOME}/.dot}"
+  local adhoc_file
+
+  for adhoc_file in "${adhoc_dir}/adhoc_aliases" "${adhoc_dir}/adhoc_functions"; do
+    if [ ! -e "${adhoc_file}" ] && [ ! -L "${adhoc_file}" ]; then
+      # Append mode preserves content if another shell creates the file first.
+      (umask 077; : >> "${adhoc_file}") || return 1
+    fi
+  done
+}
+
 sc_helper_dot_confirm_discard() {
   local answer
   local label="${2:-repository}"

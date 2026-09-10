@@ -13,6 +13,8 @@
 !.claude/skills
 !.dot/
 !.dot/**
+/.dot/adhoc_aliases
+/.dot/adhoc_functions
 .dot/cache/
 .dot/files/kubeconfig/*
 !.dot/files/kubeconfig/.keep
