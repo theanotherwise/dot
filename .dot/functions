@@ -56,18 +56,8 @@ sc_helper_dot_confirm_discard() {
 }
 
 sc_helper_dot_sync() {
-  local skills_dir="${HOME}/.dot/ai-skills"
-
   sc_helper_dot_confirm_discard "${HOME}" "dot" "ignore-submodules" || return 1
-  command git -C "${HOME}" pull --ff-only --recurse-submodules=no origin main || return 1
-
-  if command git -C "${skills_dir}" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    sc_helper_dot_confirm_discard "${skills_dir}" "dot/ai-skills" || return 1
-  fi
-
-  command git -C "${HOME}" submodule sync --recursive -- ".dot/ai-skills" || return 1
-  command git -C "${HOME}" submodule update --init --remote --recursive -- ".dot/ai-skills" || return 1
-  command git -C "${skills_dir}" status --short --branch
+  command git -C "${HOME}" pull --ff-only origin main || return 1
   sc_helper_dotcache
 }
 
