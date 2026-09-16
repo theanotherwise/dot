@@ -56,6 +56,10 @@ sc_helper_dot_confirm_discard() {
 }
 
 sc_helper_dot_sync() {
+  # Remove the retired skills checkout left by older dot revisions.
+  if [ -e "${HOME}/.dot/ai-skills" ] || [ -L "${HOME}/.dot/ai-skills" ]; then
+    rm -rf -- "${HOME}/.dot/ai-skills"
+  fi
   sc_helper_dot_confirm_discard "${HOME}" "dot" "ignore-submodules" || return 1
   command git -C "${HOME}" pull --ff-only origin main || return 1
   sc_helper_dotcache
