@@ -70,8 +70,8 @@ alias d-rm-volumes="docker volume ls -q | xargs -r docker volume rm"
 alias d-system-prune="docker system prune -f"
 alias d-context='docker context show'
 alias d-context-compute='docker context create compute --docker "host=ssh://taw@10.100.100.8"'
-alias d-context-szew='docker context create nuc-szew --docker "host=ssh://comp@nuc.szew.lan.bajojajo.com"'
-alias d-context-faszyn='docker context create nuc-faszyn --docker "host=ssh://comp@nuc.faszyn.lan.bajojajo.com"'
+alias d-context-szew='docker context create nuc-szew --docker "host=ssh://comp@alpha.szew.lan.bajojajo.com"'
+alias d-context-faszyn='docker context create nuc-faszyn --docker "host=ssh://comp@beta.szew.lan.bajojajo.com"'
 alias d-context-compute-set='docker context use compute'
 alias d-context-szew-set='docker context use nuc-szew'
 alias d-context-faszyn-set='docker context use nuc-faszyn'
@@ -79,8 +79,8 @@ alias d-context-faszyn-set='docker context use nuc-faszyn'
 #
 #    SSH
 #
-alias ssh-conn-szew-nuc='ssh -A comp@nuc.szew.lan.bajojajo.com'
-alias ssh-conn-faszyn-nuc='ssh -A comp@nuc.faszyn.lan.bajojajo.com'
+alias ssh-conn-szew-nuc='ssh -A comp@alpha.szew.lan.bajojajo.com'
+alias ssh-conn-faszyn-nuc='ssh -A comp@beta.szew.lan.bajojajo.com'
 alias ssh-conn-faszyn-bpi='ssh root@bpi.faszyn.lan.bajojajo.com'
 alias ssh-conn-szew-bpi='ssh root@bpi.szew.lan.bajojajo.com'
 alias ssh-conn-ncc-tunnel='ssh taw@10.100.100.4'
