@@ -44,6 +44,7 @@ alias watch-30='sc_helper_watch 30'
 alias k="sc_helper_kubectl"
 alias kctx="kubectx"
 alias kctx-rke2-ural='sc_helper_kubeconfig_rke2_ural'
+alias kctx-local-szew='sc_helper_kubeconfig_local_szew'
 alias kns="kubens"
 alias kd-ns="sc_helper_kube_namespaces"
 alias kd-pods="sc_helper_kube_pods"

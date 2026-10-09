@@ -263,6 +263,18 @@ sc_helper_kubeconfig_rke2_ural() {
   printf "KUBECONFIG=%s\n" "${KUBECONFIG}"
 }
 
+sc_helper_kubeconfig_local_szew() {
+  local kubeconfig_file="${HOME}/.dot/files/kubeconfig/local-szew.yaml"
+
+  if [ ! -f "${kubeconfig_file}" ] || [ ! -r "${kubeconfig_file}" ]; then
+    printf "Kubeconfig is not readable: %s\n" "${kubeconfig_file}" >&2
+    return 1
+  fi
+
+  export KUBECONFIG="${kubeconfig_file}"
+  printf "KUBECONFIG=%s\n" "${KUBECONFIG}"
+}
+
 sc_helper_rke2_ural_alias_cleanup() {
   unalias \
     ssh-conn-ovh-rke2-ural-cl-0 \
