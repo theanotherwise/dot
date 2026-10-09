@@ -79,8 +79,8 @@ alias d-context-faszyn-set='docker context use nuc-faszyn'
 #
 #    SSH
 #
-alias ssh-conn-szew-nuc-alpha='ssh -A comp@alpha.szew.lan.bajojajo.com'
-alias ssh-conn-szew-nuc-beta='ssh -A comp@beta.szew.lan.bajojajo.com'
+alias ssh-conn-szew-alpha='ssh -A comp@alpha.szew.lan.bajojajo.com'
+alias ssh-conn-szew-beta='ssh -A comp@beta.szew.lan.bajojajo.com'
 alias ssh-conn-faszyn-bpi='ssh root@bpi.faszyn.lan.bajojajo.com'
 alias ssh-conn-szew-bpi='ssh root@bpi.szew.lan.bajojajo.com'
 alias ssh-conn-ncc-tunnel='ssh taw@10.100.100.4'
