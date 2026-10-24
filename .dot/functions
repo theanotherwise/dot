@@ -743,7 +743,7 @@ sc_helper_kubectl() {
 
 sc_helper_kube_delete_finished() {
   if [ "$#" -ne 1 ]; then
-    printf '%s\n' 'Usage: kd-error or kd-completed (no arguments)' >&2
+    printf '%s\n' 'Usage: kd-rm-error or kd-rm-completed (no arguments)' >&2
     return 2
   fi
   case "$1" in
@@ -760,7 +760,7 @@ sc_helper_kube_evicted() {
   local -a pod_names=()
 
   if [ "$#" -ne 0 ]; then
-    printf '%s\n' 'Usage: kd-evicted' >&2
+    printf '%s\n' 'Usage: kd-rm-evicted' >&2
     return 2
   fi
   if ! command -v kubectl >/dev/null 2>&1; then
