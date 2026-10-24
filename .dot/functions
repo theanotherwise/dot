@@ -741,6 +741,20 @@ sc_helper_kubectl() {
   command kubectl "$@"
 }
 
+sc_helper_kube_delete_finished() {
+  if [ "$#" -ne 1 ]; then
+    printf '%s\n' 'Usage: kd-error or kd-completed (no arguments)' >&2
+    return 2
+  fi
+  case "$1" in
+    Failed|Succeeded) ;;
+    *) return 2 ;;
+  esac
+
+  # kubectl uses the current context and its namespace (default if unset).
+  command kubectl delete pods --field-selector="status.phase=$1"
+}
+
 sc_helper_kube_evicted() {
   local evicted_pods pod_name
   local -a pod_names=()
